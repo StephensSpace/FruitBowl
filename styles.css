@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#calculator { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#apiDropdown {
+    height: fit-content;
+}
+
+#valueInput {
+    height: fit-content;
+}
+
+#caloriesSugar {
+    height: fit-content;
+}
