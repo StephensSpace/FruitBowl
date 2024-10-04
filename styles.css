@@ -3,6 +3,10 @@ body {
     scroll-behavior: smooth;
 }
 
+.dNone {
+    display: none;
+}
+
 #content {
     display: flex;
     flex-direction: column;
@@ -28,4 +32,8 @@ body {
 
 #caloriesSugar {
     height: fit-content;
+}
+
+#totalValues {
+    font-weight: 600;
 }

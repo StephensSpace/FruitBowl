@@ -1,4 +1,4 @@
-
+let yourFruitBowl = []
 async function fetchDataJson() {
 
     try {
@@ -84,12 +84,62 @@ function calculateNutritionsGrammChange(element) {
 
 function addBowl(calories, sugar, gram, fruitName) {
 
-    console.log(calories, sugar, gram, fruitName);
-
+    newIngredient = {
+        'name': fruitName,
+        'calories': calories,
+        'sugar': sugar,
+        'gram': gram
+    };
+    yourFruitBowl.push(newIngredient);
+    console.log(yourFruitBowl);
+    renderFruitBowl()
 }
 
 function passParameterToBtn(calories, sugar, gram, fruitName) {
     document.getElementById('addBtn').setAttribute("onclick", `addBowl(${calories}, ${sugar}, ${gram}, '${fruitName}')`);
+}
+
+function renderFruitBowl() {
+    let table = document.getElementById('bowlTable');
+    let totalNutrition = 0;
+    let totalSugar = 0;
+    table.innerHTML = tableHeaderHTML();
+    yourFruitBowl.forEach(element => {
+        totalSugar += element.sugar // ist das selbe als n = n + new; n += new
+        totalNutrition += element.calories
+        let formatedCalories = element.calories.toFixed(2).toString().replace('.', ',') + 'KJ';
+        let formatedSugar = element.sugar.toFixed(2).toString().replace('.', ',') + 'g';
+        let newRow = document.createElement('tr');
+        let cells = FillTable(formatedSugar, formatedCalories, element);
+        newRow.append(...cells);
+        table.appendChild(newRow);
+    });
+    let formatedTotalSugar = totalSugar.toFixed(2).toString().replace('.', ',') + 'g';
+    let formatedTotalNutrition = totalNutrition.toFixed(2).toString().replace('.', ',') + 'KJ';
+    document.getElementById('totalValues').innerHTML = `Your Fruitbowl contains ${formatedTotalSugar} Sugar and got ${formatedTotalNutrition}`
+}
+
+function FillTable(formatedSugar, formatedCalories, element) {
+    let nameCell = document.createElement('td');
+        nameCell.innerHTML = `${element.name}`;
+        let gramsCell = document.createElement('td');
+        gramsCell.innerHTML = `${element.gram}g`; 
+        let caloriesCell = document.createElement('td');
+        caloriesCell.innerHTML = `${formatedCalories}`;
+        let sugarCell = document.createElement('td');
+        sugarCell.innerHTML = `${formatedSugar}`;
+        return [nameCell, gramsCell, sugarCell, caloriesCell];
+}
+
+function tableHeaderHTML() {
+    return `
+        <tr>
+            <th>Fruchtname</th>
+            <th>Gewicht (g)</th>
+            <th>Zucker (g)</th>
+            <th>Brennwert (KJ)</th>
+        </tr>
+    `;
 }
 
 
